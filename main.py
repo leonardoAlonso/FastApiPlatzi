@@ -40,6 +40,17 @@ class Person(BaseModel):
     is_married: Optional[bool] = Field(default=None)
     email: EmailStr = Field(..., example="test@test.com")
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "first_name": "Leonardo",
+                "last_name": "Alonso",
+                "age": 26,
+                "hair_color": "brown",
+                "is_married": False
+            }
+        }
+
 class Location(BaseModel):
     city: str = Field(..., min_length=1)
     state:str = Field(..., min_length=1)
