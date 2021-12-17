@@ -20,7 +20,7 @@ class HairColor(Enum):
     red = "red"
 
 
-class Person(BaseModel):
+class BasePerson(BaseModel):
     first_name: str = Field(
         ...,
         min_length=1,
@@ -54,37 +54,12 @@ class Person(BaseModel):
             }
         }
 
-class PersonOut(BaseModel):
-    first_name: str = Field(
-        ...,
-        min_length=1,
-        max_length=50
-    )
-    last_name: str = Field(
-        ...,
-        min_length=1,
-        max_length=50
-    )
-    age: int = Field(
-        ...,
-        gt=0,
-        lt=99
-    )
-    hair_color: Optional[HairColor] = Field(default=None)
-    is_married: Optional[bool] = Field(default=None)
-    email: EmailStr = Field(..., example="test@test.com") 
+class Person(BasePerson):
+    password: str = Field(..., min_length=8)
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "first_name": "Leonardo",
-                "last_name": "Alonso",
-                "age": 26,
-                "hair_color": "brown",
-                "is_married": False,
-                "email": "",
-            }
-        }
+
+class PersonOut(BasePerson):
+    pass
 
 class Location(BaseModel):
     city: str = Field(..., min_length=1)
