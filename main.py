@@ -17,7 +17,7 @@ class HairColor(Enum):
     brown = "brown"
     black = "black"
     blonde = "blonde"
-    red = "red" 
+    red = "red"
 
 
 class Person(BaseModel):
@@ -74,14 +74,16 @@ def person_detail(
             min_length=1,
             max_length=50,
             title="Person Name",
-            description="This is the person name, It's between 1 and 50 characters"
+            description="This is the person name, It's between 1 and 50 characters",
+            example="Leonardo"
         ),
     age: int = Query(
             ...,
             gt=0,
             lt=99,
             title="Person Age",
-            description="This is the person age, It's bettween 0 and 99"
+            description="This is the person age, It's bettween 0 and 99",
+            example=26
         )
 ):
     return {name: age}
@@ -94,7 +96,8 @@ def show_person(
             ...,
             gt=0,
             name="Person id",
-            description="This is the id stored in the database, It should be grater than 0"
+            description="This is the id stored in the database, It should be grater than 0",
+            example=4
         )
 ):
     return {person_id: "It exists!"}
@@ -107,7 +110,8 @@ def update_person(
         ...,
         title="Person id",
         description="This is the person id",
-        gt=0
+        gt=0,
+        example=5
     ),
     person: Person = Body(...),
     location: Location = Body(...)
